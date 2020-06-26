@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> Patients </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> First Name </th>
+                    <th> Last Name </th>
+                    <th> Email </th>
+                    <th> Infected? </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="  ${#strings.isEmpty(patients)}">
+                    <td colspan="2"> No Patients Available </td>
+                </tr>
+                <tr th:each="patient : ${patients}">
+                    <td><span th:text="${patient.firstName}"> First Name </span></td>
+                    <td><span th:text="${patient.lastName}"> Last Name </span></td>
+                    <td><span th:text="${patient.email}"> Email </span></td>
+                    <td><span th:text="${patient.infected}"> Infected? </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-success" href="#" th:href="@{/create}"> Add Patients </a>
+            <a class="btn btn-primary" href="#" th:href="@{/edit}" th:classappend="${#strings.isEmpty(patients)} ? 'disabled' : ''"> Edit Patients </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
