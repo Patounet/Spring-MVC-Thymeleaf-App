@@ -22,9 +22,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="  ${#strings.isEmpty(patients)}">
-                    <td colspan="2"> No Patients Available </td>
-                </tr>
                 <tr th:each="patient : ${patients}">
                     <td><span th:text="${patient.firstName}"> First Name </span></td>
                     <td><span th:text="${patient.lastName}"> Last Name </span></td>

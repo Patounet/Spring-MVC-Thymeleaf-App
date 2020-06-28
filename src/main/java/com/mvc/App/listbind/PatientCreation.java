@@ -14,7 +14,14 @@ public class PatientCreation {
     private List<Patient> patients;
 
     public void addPatient(Patient patient) {
-        this.patients.add(patient);
+
+        try{
+            this.patients.add(patient);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
 }

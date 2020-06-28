@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
-div class="container">
 <div class="row">
     <div class="col-md-12">
         <h1> Add Patients </h1>
@@ -12,7 +11,7 @@ div class="container">
 </div>
 <div class="row">
     <div class="col-md-6">
-        <a class="btn btn-info" href="#" th:href="@{/patients}"> Back to All Patients </a>
+        <a class="btn btn-info" href="#" th:href="@{/}"> Back to All Patients </a>
         <form action="#" class="form-horizontal"
               th:action="@{/save}"
               th:object="${form}"

@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@EnableJpaRepositories("com.mvc.App.repository")
+@EntityScan("com.mvc.App.entity")
 public class MvcApp1Application implements CommandLineRunner {
 
 	public static void main(String[] args) {
