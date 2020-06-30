@@ -6,6 +6,7 @@ import com.mvc.App.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,12 +24,6 @@ public class PatientController {
         return "patient-list";
          }
 
-        @GetMapping("/patient/{id}")
-        public String patient(@PathVariable Long id, Model model) {
-            model.addAttribute("patient", repository.findById(id));
-            return "patient";
-        }
-
         @GetMapping("/create")
         public String CreateForm(Model model) {
         PatientCreation patientsForm = new PatientCreation();
@@ -37,14 +32,14 @@ public class PatientController {
         }
 
         model.addAttribute("form", patientsForm);
-        model.addAttribute("patients", repository.findAll());
+        //model.addAttribute("patients", repository.findAll());
         return "create-patient-form";
-    }
+        }
 
 
         @PostMapping("/save")
-        public String saveBooks(@ModelAttribute PatientCreation form, Model model) {
-        repository.saveAll(form.getPatients());
+        public String saveBooks(@ModelAttribute PatientCreation form,  Model model) {
+        repository.saveAll(form.getPatient());
 
         model.addAttribute("patients", repository.findAll());
         return "redirect:/";

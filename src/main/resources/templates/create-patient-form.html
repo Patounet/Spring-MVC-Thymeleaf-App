@@ -18,22 +18,28 @@
               method="post">
             <fieldset>
 					<span class="pull-right">
-						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
-						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
+                        <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
+                        <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
 					</span>
                 <table class="table">
                     <thead>
                     <tr>
-                        <th> FirstName</th>
-                        <th> LastName</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Email</th>
+                        <th>Infected?</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="patient, itemStat : *{patients}">
-                        <td><input th:placeholder="First Name + ' ' + ${itemStat.count}" th:field="*{patients[__${itemStat.index}__].firstName}" required/></td>
-                        <td><input th:placeholder="Last Name + ' ' + ${itemStat.count}" th:field="*{patients[__${itemStat.index}__].lastName}" required/></td>
-                        <td><input th:placeholder="Email + ' ' + ${itemStat.count}" th:field="*{patients[__${itemStat.index}__].email}" required/></td>
-                        <td><input th:placeholder="Last Name + ' ' + ${itemStat.count}" th:field="*{patients[__${itemStat.index}__].isInfected()}" required/></td>
+                    <tr th:each="patient, itemStat : *{patient}">
+
+                        <td><input th:field="*{patient[__${itemStat.index}__].firstName}" /></td>
+                        <td><input th:field="*{patient[__${itemStat.index}__].lastName}" /></td>
+                        <td><input th:field="*{patient[__${itemStat.index}__].email}" /></td>
+                        <td><select class="form-control" th:field="*{patient[__${itemStat.index}__].infected}">
+                            <option th:value="${patient.infected}" >true</option>
+                            <option th:value="${patient.infected}" >false</option>
+                        </select></td>
                     </tr>
                     </tbody>
                 </table>
