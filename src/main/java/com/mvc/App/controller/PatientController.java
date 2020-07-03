@@ -27,7 +27,7 @@ public class PatientController {
         @GetMapping("/create")
         public String CreateForm(Model model) {
         PatientCreation patientsForm = new PatientCreation();
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 5; i++) {
             patientsForm.addPatient(new Patient());
         }
 
@@ -39,7 +39,11 @@ public class PatientController {
 
         @PostMapping("/save")
         public String saveBooks(@ModelAttribute PatientCreation form,  Model model) {
-        repository.saveAll(form.getPatient());
+        for (Patient patient : form.getPatient()){
+            if(!patient.getFirstName().isBlank() && !patient.getTest().equals(null)){
+                repository.save(patient);
+            }
+        }
 
         model.addAttribute("patients", repository.findAll());
         return "redirect:/";

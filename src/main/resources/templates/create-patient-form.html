@@ -10,7 +10,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <a class="btn btn-info" href="#" th:href="@{/}"> Back to All Patients </a>
         <form action="#" class="form-horizontal" th:action="@{/save}" th:object="${form}" method="post">
             <fieldset>
@@ -24,7 +24,7 @@
                         <th>FirstName</th>
                         <th>LastName</th>
                         <th>Email</th>
-                        <th>Infected?</th>
+                        <th>Tested?</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,9 +32,10 @@
                         <td><input th:field="*{patient[__${itemStat.index}__].firstName}" /></td>
                         <td><input th:field="*{patient[__${itemStat.index}__].lastName}" /></td>
                         <td><input th:field="*{patient[__${itemStat.index}__].email}" /></td>
-                        <td><select class="form-control" th:field="*{patient[__${itemStat.index}__].infected}">
-                            <option th:value="${patient.infected}" >true</option>
-                            <option th:value="${patient.infected}" >false</option>
+                        <td>
+                            <select class="form-control" th:field="*{patient[__${itemStat.index}__].test}">
+                                <option th:each="testOpt : ${T(com.mvc.App.entity.Tested).values()}"
+                                        th:value="${testOpt}" th:text="${testOpt.displayValue}"></option>
                             </select>
                         </td>
                     </tr>

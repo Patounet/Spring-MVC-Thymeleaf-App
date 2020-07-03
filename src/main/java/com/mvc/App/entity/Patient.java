@@ -23,7 +23,7 @@ public class Patient {
     private String lastName;
     private String email;
 
-    private boolean infected;
+    private Tested test;
 
 
 }
