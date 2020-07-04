@@ -38,7 +38,7 @@ public class PatientController {
 
 
         @PostMapping("/save")
-        public String saveBooks(@ModelAttribute PatientCreation form,  Model model) {
+        public String savePatients(@ModelAttribute PatientCreation form,  Model model) {
         for (Patient patient : form.getPatient()){
             if(!patient.getFirstName().isBlank() && !patient.getTest().equals(null)){
                 repository.save(patient);
