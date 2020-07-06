@@ -6,9 +6,7 @@ import com.mvc.App.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,24 +28,20 @@ public class PatientController {
         for (int i = 1; i <= 5; i++) {
             patientsForm.addPatient(new Patient());
         }
-
         model.addAttribute("form", patientsForm);
-        //model.addAttribute("patients", repository.findAll());
         return "create-patient-form";
         }
-
 
         @PostMapping("/save")
         public String savePatients(@ModelAttribute PatientCreation form,  Model model) {
         for (Patient patient : form.getPatient()){
-            if(!patient.getFirstName().isBlank() && !patient.getTest().equals(null)){
+            if(!patient.getEmail().isBlank() && !patient.getTest().equals(null)){
                 repository.save(patient);
             }
         }
-
         model.addAttribute("patients", repository.findAll());
         return "redirect:/";
-    }
+        }
 
         @GetMapping(value = "/edit")
          public String showEditForm(Model model) {
@@ -56,12 +50,9 @@ public class PatientController {
                 .iterator()
                 .forEachRemaining(patients::add);
 
-        model.addAttribute("form", new PatientCreation(patients));
-        model.addAttribute("patients", repository.findAll());
-
-        return "editPatientForm";
-    }
-
-    }
+       model.addAttribute("form", new PatientCreation(patients));
+       return "editPatientForm";
+       }
+  }
 
 
