@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Controller
 public class PatientController {
@@ -34,11 +37,17 @@ public class PatientController {
 
         @PostMapping("/save")
         public String savePatients(@ModelAttribute PatientCreation form,  Model model) {
-        for (Patient patient : form.getPatient()){
-            if(!patient.getEmail().isBlank() && !patient.getTest().equals(null)){
-                repository.save(patient);
-            }
+            List<Patient> filteredPatients = form.getPatient()
+                .stream()
+                .filter(Objects::nonNull)
+                .filter(p -> !p.getTest().getDisplayValue().isBlank())
+                .collect(Collectors.toList());
+
+        for (Patient p : filteredPatients){
+                repository.save(p);
         }
+
+
         model.addAttribute("patients", repository.findAll());
         return "redirect:/";
         }
