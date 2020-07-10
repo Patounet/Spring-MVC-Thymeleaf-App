@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
-@EnableJpaRepositories("com.mvc.App.repository")
-@EntityScan("com.mvc.App.entity")
 public class MvcApp1Application implements CommandLineRunner {
 
 	public static void main(String[] args) {
