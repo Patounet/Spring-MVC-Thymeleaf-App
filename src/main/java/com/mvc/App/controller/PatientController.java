@@ -3,6 +3,7 @@ package com.mvc.App.controller;
 import com.mvc.App.entity.Patient;
 import com.mvc.App.listbind.PatientCreation;
 import com.mvc.App.repository.PatientRepository;
+import com.mvc.App.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,18 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Controller
 public class PatientController {
 
         @Autowired
-        PatientRepository repository;
+        PatientService patientService;
 
         @GetMapping("/")
         public String patientsList(Model model) {
-        model.addAttribute("patients", repository.findAll());
+        model.addAttribute("patients", patientService.getAllPatients());
         return "patient-list";
          }
 
@@ -44,18 +44,17 @@ public class PatientController {
                 .collect(Collectors.toList());
 
         for (Patient p : filteredPatients){
-                repository.save(p);
+                patientService.savePatients(p);
         }
 
-
-        model.addAttribute("patients", repository.findAll());
+        model.addAttribute("patients", patientService.getAllPatients());
         return "redirect:/";
         }
 
         @GetMapping(value = "/edit")
          public String showEditForm(Model model) {
         List<Patient> patients = new ArrayList<>();
-        repository.findAll()
+        patientService.getAllPatients()
                 .iterator()
                 .forEachRemaining(patients::add);
 
