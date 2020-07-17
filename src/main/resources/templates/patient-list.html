@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-6">
             <a class="btn btn-success" href="#" th:href="@{/create}"> Add Patients </a>
-            <a class="btn btn-primary" href="#" th:href="@{/edit}" th:classappend="${#strings.isEmpty(patients)} ? 'disabled' : ''"> Edit Patients </a>
+            <a class="btn btn-primary" href="#" th:href="@{/edit/'${patient.id}'}" th:classappend="${#strings.isEmpty(patients)} ? 'disabled' : ''"> Edit Patients </a>
         </div>
     </div>
 </div>

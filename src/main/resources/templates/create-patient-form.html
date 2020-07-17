@@ -4,46 +4,31 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="row">
-    <div class="col-md-12">
-        <h1> Add Patients </h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-7">
-        <a class="btn btn-info" href="#" th:href="@{/}"> Back to All Patients </a>
-        <form action="#" class="form-horizontal" th:action="@{/save}" th:object="${form}" method="post">
-            <fieldset>
-					<span class="pull-right">
-                        <input type="submit" id="submitButton" class="btn btn-success" th:value="Save">
-                        <input type="reset" id="resetButton" class="btn btn-danger" th:value="Reset"/>
-					</span>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>FirstName</th>
-                        <th>LastName</th>
-                        <th>Email</th>
-                        <th>Tested?</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="patient, itemStat : *{patient}">
-                        <td><input th:field="*{patient[__${itemStat.index}__].firstName}" /></td>
-                        <td><input th:field="*{patient[__${itemStat.index}__].lastName}" /></td>
-                        <td><input th:field="*{patient[__${itemStat.index}__].email}" /></td>
-                        <td>
-                            <select class="form-control" th:field="*{patient[__${itemStat.index}__].test}">
-                                <option th:each="testOpt : ${T(com.mvc.App.entity.Tested).values()}"
-                                        th:value="${testOpt}" th:text="${testOpt.displayValue}"></option>
-                            </select>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </fieldset>
+    <div class="container">
+        <form class="form-horizontal" th:object="${form}"  th:action="@{/save}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" th:field="*{firstName}" class="form-control" placeholder="First Name">
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" th:field="*{lastName}" class="form-control" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+                <label>Email address</label>
+                <input type="text" th:field="*{email}" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group" >
+            <label>Select if patient has been tested or not</label>
+            <select th:field="*{test}">
+                <option th:each="testOpt : ${T(com.mvc.App.entity.Tested).values()}"
+                        th:value="${testOpt}" th:text="${testOpt.displayValue}"></option>
+            </select>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
         </form>
+        <a class="btn btn-info" href="#" th:href="@{/}"> Back to All Patients </a>
     </div>
-</div>
 </body>
 </html>
