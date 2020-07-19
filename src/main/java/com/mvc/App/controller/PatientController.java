@@ -18,7 +18,7 @@ public class PatientController {
         public String patientsList(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());
         return "patient-list";
-         }
+        }
 
         @GetMapping("/create")
         public String createForm(Model model) {
@@ -34,15 +34,15 @@ public class PatientController {
 
         @GetMapping("/edit/{id}")
         public String showEditForm(@PathVariable Long id, Model model) {
-       model.addAttribute("form", patientService.findById(id).orElse(new Patient()));
-       return "create-patient-form";
-       }
+        model.addAttribute("form", patientService.findById(id).orElse(new Patient()));
+        return "create-patient-form";
+        }
 
-    @GetMapping("/delete/{id}")
-    public String deletePatient(@PathVariable  Long id) {
+        @GetMapping("/delete/{id}")
+        public String deletePatient(@PathVariable  Long id) {
         patientService.deleteById(id);
         return "redirect:/";
-    }
+        }
   }
 
 
