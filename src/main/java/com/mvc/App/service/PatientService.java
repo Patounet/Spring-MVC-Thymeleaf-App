@@ -9,8 +9,11 @@ public interface PatientService {
 
 
         Optional<Patient> findById(Long id);
+
         List<Patient> findAll();
+
         Patient save(Patient patient);
+
         void deleteById(Long id);
 
 }

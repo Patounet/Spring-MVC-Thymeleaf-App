@@ -15,22 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
-public class MvcApp1Application implements CommandLineRunner {
+public class MvcApp1Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MvcApp1Application.class, args);
 	}
 
-	@Autowired
-	PatientRepository repository;
 
-	@Override
-	public void run(String... args) throws Exception {
-		repository.deleteAll();
-		repository.save(new Patient(1, "elena", "prisca", "eprisca@gmail.com", Tested.POSITIVE));
-		repository.save(new Patient(2, "Alba", "villa", "ville@gmail.com", Tested.NEGATIVE));
-		repository.save(new Patient(3, "John", "Roger", "john@gmail.com", Tested.NOT_TESTED));
-		repository.findAll();
-
-	}
 }
