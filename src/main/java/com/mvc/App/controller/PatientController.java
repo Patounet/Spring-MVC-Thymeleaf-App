@@ -1,8 +1,6 @@
 package com.mvc.App.controller;
-
 import com.mvc.App.entity.Patient;
-
-import com.mvc.App.service.PatientService;
+import com.mvc.App.service.PatientServiceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class PatientController {
 
         @Autowired
-        PatientService patientService;
+        PatientServiceimpl patientService;
 
         @GetMapping("/")
         public String patientsList(Model model) {

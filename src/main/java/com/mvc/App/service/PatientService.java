@@ -1,32 +1,16 @@
 package com.mvc.App.service;
 
 import com.mvc.App.entity.Patient;
-import com.mvc.App.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class PatientService implements serviceInterface {
+public interface PatientService {
 
-    @Autowired
-    PatientRepository patientRepository;
 
-    public List<Patient> findAll(){
-        return patientRepository.findAll();
-    }
+        Optional<Patient> findById(Long id);
+        List<Patient> findAll();
+        Patient save(Patient patient);
+        void deleteById(Long id);
 
-    public Patient save(Patient p) {
-        return patientRepository.save(p);
-    }
-
-    public Optional<Patient> findById(Long id) {
-        return patientRepository.findById(id);
-    }
-
-    public void deleteById(Long id) {
-        patientRepository.deleteById(id);
-    }
 }
