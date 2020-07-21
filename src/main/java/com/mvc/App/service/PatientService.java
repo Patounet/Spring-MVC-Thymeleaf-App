@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PatientService {
+public class PatientService implements serviceInterface {
 
     @Autowired
     PatientRepository patientRepository;
 
-    public List<Patient> getAllPatients(){
+    public List<Patient> findAll(){
         return patientRepository.findAll();
     }
 
-    public void savePatient(Patient p) {
-        patientRepository.save(p);
+    public Patient save(Patient p) {
+        return patientRepository.save(p);
     }
 
     public Optional<Patient> findById(Long id) {

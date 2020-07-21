@@ -16,7 +16,7 @@ public class PatientController {
 
         @GetMapping("/")
         public String patientsList(Model model) {
-        model.addAttribute("patients", patientService.getAllPatients());
+        model.addAttribute("patients", patientService.findAll());
         return "patient-list";
         }
 
@@ -28,7 +28,7 @@ public class PatientController {
 
         @PostMapping("/save")
         public String savePatients(Patient patient, Model model) {
-        patientService.savePatient(patient);
+        patientService.save(patient);
         return "redirect:/";
         }
 
