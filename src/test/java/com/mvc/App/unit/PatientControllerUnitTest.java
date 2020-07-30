@@ -13,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +20,8 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -53,7 +52,7 @@ public class PatientControllerUnitTest {
     @Test
     void shouldFetchAllPatients() throws Exception {
 
-       given(service.findAll()).willReturn(patientList);
+       when(service.findAll()).thenReturn(patientList);
 
        this.mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -66,7 +65,7 @@ public class PatientControllerUnitTest {
         final long pId = 54l;
         final Patient patient54 = new Patient(54l, "Jean", "Gaston", "jg@gaston.com", Tested.NOT_TESTED);
 
-        given(service.findById(pId)).willReturn(Optional.of(patient54));
+        when(service.findById(pId)).thenReturn(Optional.of(patient54));
 
         this.mockMvc.perform(get("/edit/{id}", pId))
                 .andExpect(status().isOk())
@@ -85,7 +84,38 @@ public class PatientControllerUnitTest {
                 .andExpect(view().name("create-patient-form"));
     }
 
+
+    @Test
+    void shouldSaveNewPatientAndRedirectList() throws Exception{
+
+        Patient patient54 = new Patient();
+        patient54.setId(54l);
+
+        when(service.save(any(Patient.class))).thenReturn(patient54);
+
+        this.mockMvc.perform(post("/save", 54l)
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param("firstName", "Georges")
+                    .param("lastName", "Gaston")
+                    .param("email", "jg@gaston.com")
+                    .accept(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(content().string(""))
+                .andExpect(redirectedUrl("/"))
+                .andExpect(view().name("redirect:/"));
+
     }
+
+    @Test
+    public void testDeleteAction() throws Exception {
+
+        this.mockMvc.perform(get("/delete/{id}", 1L))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));
+
+        verify(service, times(1)).deleteById(anyLong());
+    }
+}
 
 
 
