@@ -107,7 +107,7 @@ public class PatientControllerUnitTest {
     }
 
     @Test
-    public void testDeleteAction() throws Exception {
+    public void shouldDeletePatient() throws Exception {
 
         this.mockMvc.perform(get("/delete/{id}", 1L))
                 .andExpect(status().is3xxRedirection())
