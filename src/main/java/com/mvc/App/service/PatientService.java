@@ -10,7 +10,7 @@ public interface PatientService {
 
         Optional<Patient> findById(Long id);
 
-        List<Patient> findAll();
+        List<Patient> findAll(String keyword);
 
         Patient save(Patient patient);
 

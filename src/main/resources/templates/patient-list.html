@@ -7,6 +7,13 @@
     <div class="container">
         <table class="table">
             <h2>Patients</h2>
+            <form th:action="@{/}">
+                Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
+                &nbsp;
+                <input class="btn btn-success" type="submit" value="Search" />
+                &nbsp;
+                <input class="btn btn-success" type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+            </form>
                 <thead>
                 <tr>
                     <th> First Name </th>
@@ -28,5 +35,10 @@
                 </tbody>
         </table>
     </div>
+    <script type="text/javascript">
+        function clearSearch() {
+            window.location = "[[@{/}]]";
+        }
+    </script>
 </body>
 </html>

@@ -52,7 +52,7 @@ public class PatientControllerUnitTest {
     @Test
     void shouldFetchAllPatients() throws Exception {
 
-       when(service.findAll()).thenReturn(patientList);
+       when(service.findAll(null)).thenReturn(patientList);
 
        this.mockMvc.perform(get("/"))
                 .andExpect(status().isOk())

@@ -2,9 +2,12 @@ package com.mvc.App.controller;
 import com.mvc.App.entity.Patient;
 import com.mvc.App.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class PatientController {
@@ -13,8 +16,10 @@ public class PatientController {
         PatientService patientService;
 
         @GetMapping("/")
-        public String patientsList(Model model) {
-        model.addAttribute("patients", patientService.findAll());
+        public String patientsList(Model model, @Param("keyword") String keyword) {
+        List<Patient> listPatients = patientService.findAll(keyword);
+        model.addAttribute("patients", listPatients);
+        model.addAttribute("keyword", keyword);
         return "patient-list";
         }
 

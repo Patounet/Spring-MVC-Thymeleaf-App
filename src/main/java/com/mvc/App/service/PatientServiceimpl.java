@@ -14,7 +14,10 @@ public class PatientServiceimpl implements PatientService {
     @Autowired
     PatientRepository patientRepository;
 
-    public List<Patient> findAll(){
+    public List<Patient> findAll(String keyword){
+        if (keyword != null){
+            return patientRepository.search(keyword);
+        }
         return patientRepository.findAll();
     }
 
@@ -25,6 +28,7 @@ public class PatientServiceimpl implements PatientService {
     public Optional<Patient> findById(Long id) {
         return patientRepository.findById(id);
     }
+
 
     public void deleteById(Long id) {
         patientRepository.deleteById(id);
